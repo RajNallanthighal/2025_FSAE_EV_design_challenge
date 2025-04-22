@@ -25,6 +25,16 @@ function App() {
       setRecommendations([]);
       const id = await getSongID(query);
       const recs = await getSongRecommendations(id);
+      await Promise.all(
+        recs.map(song => {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = song.recommended_song.header_image_url;
+            img.onload = resolve;
+            img.onerror = reject;
+          });
+        })
+      );
       setRecommendations(recs);
     } catch (error) {
       console.error("fs fucked some shit up", error);
