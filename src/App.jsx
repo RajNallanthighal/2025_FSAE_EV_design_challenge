@@ -37,7 +37,7 @@ function App() {
           })
         );
       }
-      console.log(recs)
+      // console.log(recs)
       setRecommendations(recs);
     } catch (error) {
       console.error("fs fucked some shit up", error);
