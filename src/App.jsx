@@ -58,7 +58,7 @@ function App() {
       </div>
       <div className="body">
         <form onSubmit={handleRecommendations}>
-          <p className="instruction">Enter a song, artist, or vibe.</p>
+          <p className="instruction">Enter a song, artist, or vibe. Get recommendations. Simple.</p>
           <div className="inputBar">
             <img className="search" src={Search} alt="Search" width="36" height="36" />
             <input  type="text"
