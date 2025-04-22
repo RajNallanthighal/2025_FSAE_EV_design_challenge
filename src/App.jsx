@@ -62,7 +62,7 @@ function App() {
                     value={query}
                     onChange={handleQueryChange}
                     placeholder='e.g. Tame Impala, LeBron, upbeat, r&b...'/>
-            <button type="submit" className="submit-btn">
+            <button type="submit">
               {loading ? (
                 <div className="spinner" />
               ) : (
