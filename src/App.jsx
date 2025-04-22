@@ -25,16 +25,19 @@ function App() {
       setRecommendations([]);
       const id = await getSongID(query);
       const recs = await getSongRecommendations(id);
-      await Promise.all(
-        recs.map(song => {
-          return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = song.recommended_song.header_image_url;
-            img.onload = resolve;
-            img.onerror = reject;
-          });
-        })
-      );
+      if (recs !== undefined) {
+        await Promise.all(
+          recs.map(song => {
+            return new Promise((resolve, reject) => {
+              const img = new Image();
+              img.src = song.recommended_song.header_image_url;
+              img.onload = resolve;
+              img.onerror = reject;
+            });
+          })
+        );
+      }
+      console.log(recs)
       setRecommendations(recs);
     } catch (error) {
       console.error("fs fucked some shit up", error);
@@ -71,19 +74,32 @@ function App() {
             </button>
           </div>
         </form>
-        {recommendations.map((song, index) => {
-          return(
-          <div key={index} className="song" style={{animationDelay: `${index * 250}ms`}}>
-            <img src={song.recommended_song.header_image_url} className="picture" alt="Song Image" width="100" height="100" />
-            <div className="details">
-              <p className="song_title">{song.recommended_song.title}</p>
-              <p className="song_artist">{song.recommended_song.primary_artist.name}</p>
-            </div>
-              <a className="link" href={song.recommended_song.url} target="_blank">
-                <img src={Music}  alt="Link" width="20" height="20" />
-              </a>
-          </div>
-          )})
+        {recommendations === undefined 
+          ? (
+              <div>
+                <p className="song">No song matches :/</p>
+              </div>
+            )
+          : (
+              recommendations.map((song, index) => (
+                <div key={index} className="song" style={{animationDelay: `${index * 250}ms`}}>
+                  <img 
+                    src={song.recommended_song.header_image_url} 
+                    className="picture" 
+                    alt="Song Image" 
+                    width="100" 
+                    height="100" 
+                  />
+                  <div className="details">
+                    <p className="song_title">{song.recommended_song.title}</p>
+                    <p className="song_artist">{song.recommended_song.primary_artist.name}</p>
+                  </div>
+                  <a className="link" href={song.recommended_song.url} target="_blank" rel="noopener noreferrer">
+                    <img src={Music} alt="Link" width="20" height="20" />
+                  </a>
+                </div>
+              ))
+            )
         }
       </div>
     </div>
