@@ -64,7 +64,7 @@ function App() {
             <input  type="text"
                     value={query}
                     onChange={handleQueryChange}
-                    placeholder='e.g. The Marías, Young Thug, psychedelic, r&b...'/>
+                    placeholder='e.g. NOKIA, The Marías, Psychedelic, R&B...'/>
             <button type="submit">
               {loading ? (
                 <div className="spinner" />
